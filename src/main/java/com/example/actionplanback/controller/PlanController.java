@@ -17,15 +17,13 @@ import java.util.Optional;
 @RestController
 public class PlanController {
 
-    private final PlanRepository planRepository;
     private final PlanService planService;
 
 
     // 리스트 조회
     @GetMapping("/api/plan")
     public List<Plan> getPlans() {
-//        return planService.getPlans();
-        return planRepository.findAll();
+        return planService.getPlans();
     }
 
     // 작성
