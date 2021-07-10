@@ -10,8 +10,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Plan extends Timestamped {
 
