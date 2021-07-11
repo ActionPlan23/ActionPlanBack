@@ -2,6 +2,7 @@ package com.example.actionplanback.controller;
 
 
 import com.example.actionplanback.domain.dto.ReplyRequestDto;
+import com.example.actionplanback.domain.dto.ReplyResponseDto;
 import com.example.actionplanback.domain.entity.Reply;
 import com.example.actionplanback.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,6 @@ public class ReplyController {
     // 댓글작성 최왕규
     @PostMapping("/api/reply/{planId}")
     public void createReply(@PathVariable Long planId, @RequestBody ReplyRequestDto replyRequestDto){
-        Reply reply = new Reply(replyRequestDto, planId);
-        replyService.createReply(reply);
+        replyService.createReply(replyRequestDto, planId);
     }
-
-    @GetMapping("/api/plan/{planId}")
-    public List<Reply> getReplyAll(@PathVariable Long planId){
-        return replyService.getReplyAll(planId);
-    }
-
 }

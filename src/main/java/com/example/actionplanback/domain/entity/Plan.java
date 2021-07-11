@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,6 +33,11 @@ public class Plan extends Timestamped {
 
     @Column(nullable = false)
     private Long success;
+
+    // plan에 대해서 mapping이 되어진 아이야.
+    // 나는 단순히 읽기만 할 수 있어
+    @OneToMany(mappedBy = "plan")
+    private List<Reply> replyList = new ArrayList<>();
 
     public Plan(PlanRequestDto planRequestDto) {
 
