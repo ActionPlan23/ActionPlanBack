@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler({ IllegalArgumentException.class })
-    public ResponseEntity<Object> handle(IllegalArgumentException ex) {
+    @ExceptionHandler(value = {ApiRequestException.class})
+    public ResponseEntity<Object> handle(ApiRequestException ex) {
 
         ApiException apiException = new ApiException(
                 ex.getMessage(),
