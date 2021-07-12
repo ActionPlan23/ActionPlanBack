@@ -2,9 +2,11 @@ package com.example.actionplanback.controller;
 
 
 import com.example.actionplanback.domain.dto.DeleteRequestDto;
+import com.example.actionplanback.domain.dto.PlanAllResponseDto;
 import com.example.actionplanback.domain.dto.PlanDetailResponseDto;
 import com.example.actionplanback.domain.dto.PlanRequestDto;
 import com.example.actionplanback.domain.entity.Plan;
+
 import com.example.actionplanback.service.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,7 @@ public class PlanController {
 
     // 리스트 조회
     @GetMapping("/api/plan")
-    public List<Plan> getPlans() {
+    public List<PlanAllResponseDto> getPlans() {
         return planService.getPlans();
     }
 
