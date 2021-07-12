@@ -1,18 +1,15 @@
 package com.example.actionplanback.controller;
 
 
+import com.example.actionplanback.domain.dto.DeleteRequestDto;
 import com.example.actionplanback.domain.dto.PlanDetailResponseDto;
 import com.example.actionplanback.domain.dto.PlanRequestDto;
 import com.example.actionplanback.domain.entity.Plan;
-import com.example.actionplanback.domain.repository.PlanRepository;
-
 import com.example.actionplanback.service.PlanService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,4 +36,17 @@ public class PlanController {
     public PlanDetailResponseDto getPlan(@PathVariable Long planId) {
         return planService.getPlan(planId);
     }
+
+    // 게시글 삭제 by 2021-07-12-14:18 최민서
+    @DeleteMapping("/api/plan/{planId}")
+    public void deletePlan(@PathVariable Long planId, @RequestBody DeleteRequestDto requestDto){
+        planService.deletePlan(planId, requestDto);
+    }
+
+    // 게시글 수정 by 2021-07-12-14:18 최민서
+    @PutMapping("/api/plan/{planId}")
+    public void updatePlan(@PathVariable Long planId, @RequestBody PlanRequestDto requestDto){
+        planService.updatePlan(planId, requestDto);
+    }
+
 }
