@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,20 +22,69 @@ public class PlanService {
     private final ReplyRepository replyRepository;
 
 
-    /**
-     *
-     * 07-12 12:23 최왕규
-     */
     // 리스트 조회
     @Transactional
     public List<PlanAllResponseDto> getPlans() {
         List<Plan> planList = planRepository.findAll();
-        // 하나의 쿼리문으로 해결하기.....
+
+
         List<PlanAllResponseDto> result = planList.stream().
                 map(plan -> new PlanAllResponseDto(plan))
                 .collect(Collectors.toList());
         return result;
     }
+
+    /**
+     *
+     * 오늘의 계획만 조회
+     */
+    // 리스트 조회
+    @Transactional
+    public List<PlanAllResponseDto> getTodayPlan() {
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        int hour = localDateTime.getHour();
+        int minute = localDateTime.getMinute();
+        int second = localDateTime.getSecond();
+        long nano = localDateTime.getNano();
+
+        LocalDateTime start = localDateTime.minusHours(hour).minusMinutes(minute).minusSeconds(second).minusNanos(nano);
+        LocalDateTime end = localDateTime.plusHours(23-hour).plusMinutes(59-minute).plusSeconds(59-second).plusNanos(999999999-nano);
+        List<Plan> planList = planRepository.findAllByCreatedAtBetween(start, end);
+
+
+        List<PlanAllResponseDto> result = planList.stream().
+                map(plan -> new PlanAllResponseDto(plan))
+                .collect(Collectors.toList());
+        return result;
+    }
+
+
+    /**
+     *오늘이 아닌 계획 리스트 조회
+     */
+    @Transactional
+    public List<PlanAllResponseDto> getNotTodayPlan() {
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        int hour = localDateTime.getHour();
+        int minute = localDateTime.getMinute();
+        int second = localDateTime.getSecond();
+        long nano = localDateTime.getNano();
+
+        LocalDateTime start = localDateTime.minusHours(hour).minusMinutes(minute).minusSeconds(second).minusNanos(nano);
+        LocalDateTime end = localDateTime.plusHours(23-hour).plusMinutes(59-minute).plusSeconds(59-second).plusNanos(999999999-nano);
+        List<Plan> planList = planRepository.findAllByCreatedAtBeforeOrCreatedAtAfter(start, end);
+
+        List<PlanAllResponseDto> result = planList.stream().
+                map(plan -> new PlanAllResponseDto(plan))
+                .collect(Collectors.toList());
+        return result;
+    }
+
+
+
+
 
     // 작성
     @Transactional
