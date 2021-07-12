@@ -17,7 +17,7 @@ public class PlanAllResponseDto {
     private String content;
     private String writer;
     private String planPassword;
-    private int replyListLen;
+    private int countReply;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -28,7 +28,7 @@ public class PlanAllResponseDto {
         this.content = plan.getContent();
         this.writer = plan.getPlanWriter();
         this.planPassword = plan.getPlanPassword();
-        this.replyListLen = plan.getReplyList().size();
+        this.countReply = plan.getReplyList().size();
 
         this.createdAt = plan.getCreatedAt();
         this.modifiedAt = plan.getModifiedAt();
