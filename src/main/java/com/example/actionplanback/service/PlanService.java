@@ -41,24 +41,15 @@ public class PlanService {
     // 리스트 조회
     @Transactional
     public List<PlanAllResponseDto> getTodayPlan() {
-
-        LocalDateTime localDateTime = LocalDateTime.now();
-        int hour = localDateTime.getHour();
-        int minute = localDateTime.getMinute();
-        int second = localDateTime.getSecond();
-        long nano = localDateTime.getNano();
-
-        LocalDateTime start = localDateTime.minusHours(hour).minusMinutes(minute).minusSeconds(second).minusNanos(nano);
-        LocalDateTime end = localDateTime.plusHours(23-hour).plusMinutes(59-minute).plusSeconds(59-second).plusNanos(999999999-nano);
+        LocalDateTime start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime end = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).withNano(999999999);
         List<Plan> planList = planRepository.findAllByCreatedAtBetween(start, end);
-
 
         List<PlanAllResponseDto> result = planList.stream().
                 map(plan -> new PlanAllResponseDto(plan))
                 .collect(Collectors.toList());
         return result;
     }
-
 
     /**
      *오늘이 아닌 계획 리스트 조회
@@ -66,23 +57,14 @@ public class PlanService {
     @Transactional
     public List<PlanAllResponseDto> getNotTodayPlan() {
 
-        LocalDateTime localDateTime = LocalDateTime.now();
-        int hour = localDateTime.getHour();
-        int minute = localDateTime.getMinute();
-        int second = localDateTime.getSecond();
-        long nano = localDateTime.getNano();
-
-        LocalDateTime start = localDateTime.minusHours(hour).minusMinutes(minute).minusSeconds(second).minusNanos(nano);
-        LocalDateTime end = localDateTime.plusHours(23-hour).plusMinutes(59-minute).plusSeconds(59-second).plusNanos(999999999-nano);
-        List<Plan> planList = planRepository.findAllByCreatedAtBeforeOrCreatedAtAfter(start, end);
+        LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        List<Plan> planList = planRepository.findAllByCreatedAtBefore(today);
 
         List<PlanAllResponseDto> result = planList.stream().
                 map(plan -> new PlanAllResponseDto(plan))
                 .collect(Collectors.toList());
         return result;
     }
-
-
 
 
 

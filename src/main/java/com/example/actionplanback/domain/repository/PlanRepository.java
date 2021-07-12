@@ -16,9 +16,10 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     List<Plan> findAllByCreatedAtBetween(LocalDateTime start, LocalDateTime end);
 
     /**
-     * 07-14 19:23 오늘날짜 아닌거 가져오는거 이제시작
+     * 07-14 20:41 오늘날짜 아닌거 가져오는거 이제시작
      */
-    List<Plan> findAllByCreatedAtBeforeOrCreatedAtAfter(LocalDateTime start, LocalDateTime end);
+
+    List<Plan> findAllByCreatedAtBefore(LocalDateTime time);
 
 
 }
