@@ -38,4 +38,19 @@ public class PlanController {
     public PlanDetailResponseDto getPlan(@PathVariable Long planId) {
         return planService.getPlan(planId);
     }
+
+    
+    /**
+     * 07-12 19:37 오늘계획날짜 오늘아닌날짜 가져오는 GetMapping 작성 by 최왕규
+     */
+    @GetMapping("/api/todayplan")
+    public List<PlanAllResponseDto> getTodayPlan(){
+        return planService.getTodayPlan();
+    }
+
+    @GetMapping("/api/pastplan")
+    public List<PlanAllResponseDto> getPastPlan(){
+        return planService.getNotTodayPlan();
+    }
+
 }
