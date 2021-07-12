@@ -1,11 +1,12 @@
 package com.example.actionplanback.service;
 
+import com.example.actionplanback.domain.dto.DeleteRequestDto;
 import com.example.actionplanback.domain.dto.PlanAllResponseDto;
 import com.example.actionplanback.domain.dto.PlanDetailResponseDto;
 import com.example.actionplanback.domain.dto.PlanRequestDto;
 import com.example.actionplanback.domain.entity.Plan;
 import com.example.actionplanback.domain.repository.PlanRepository;
-import com.example.actionplanback.domain.repository.ReplyRepository;
+import com.example.actionplanback.exception.ApiRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,6 @@ import java.util.stream.Collectors;
 public class PlanService {
 
     private final PlanRepository planRepository;
-    private final ReplyRepository replyRepository;
-
 
     // 리스트 조회
     @Transactional
@@ -35,6 +34,7 @@ public class PlanService {
     }
 
     /**
+     * 07-12 12:23 최왕규
      *
      * 오늘의 계획만 조회
      */
@@ -80,8 +80,34 @@ public class PlanService {
     @Transactional
     public PlanDetailResponseDto getPlan(Long id) {
         Plan plan = planRepository.findById(id).orElseThrow(
-                ()->new IllegalArgumentException("해당 Plan 글이 없습니다. id = "+id));
+                () -> new ApiRequestException("해당 Plan 글이 없습니다. id = " + id));
         PlanDetailResponseDto responseDto = new PlanDetailResponseDto(plan);
         return responseDto;
+    }
+
+    // 게시글 삭제 by 2021-07-12-14:42 최민서
+    @Transactional
+    public void deletePlan(Long id, DeleteRequestDto requestDto) {
+        Plan plan = planRepository.findById(id).orElseThrow(
+                () -> new ApiRequestException("해당 Plan 글이 없습니다. id = " + id));
+
+        // 바말번호가 일치할때만 삭제가능
+        if (!plan.getPlanPassword().equals(requestDto.getPassword())) {
+            throw new ApiRequestException("비밀번호가 틀렸습니다.");
+        }
+        planRepository.deleteById(id);
+    }
+
+    // 게시글 수정 by 2021-07-12-14:42 최민서
+    @Transactional
+    public void updatePlan(Long id, PlanRequestDto requestDto) {
+        Plan plan = planRepository.findById(id).orElseThrow(
+                () -> new ApiRequestException("해당 Plan 글이 없습니다. id = " + id));
+
+        // 비밀번호가 일치할때만 수정가능
+        if (!plan.getPlanPassword().equals(requestDto.getPlanPassword())) {
+            throw new ApiRequestException("비밀번호가 틀렸습니다.");
+        }
+        plan.update(requestDto);
     }
 }

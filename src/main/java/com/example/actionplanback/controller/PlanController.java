@@ -1,14 +1,13 @@
 package com.example.actionplanback.controller;
 
 
+import com.example.actionplanback.domain.dto.DeleteRequestDto;
 import com.example.actionplanback.domain.dto.PlanAllResponseDto;
 import com.example.actionplanback.domain.dto.PlanDetailResponseDto;
 import com.example.actionplanback.domain.dto.PlanRequestDto;
 import com.example.actionplanback.domain.entity.Plan;
-
 import com.example.actionplanback.service.PlanService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +38,17 @@ public class PlanController {
         return planService.getPlan(planId);
     }
 
+    // 게시글 삭제 by 2021-07-12-19:18 최민서
+    @DeleteMapping("/api/plan/{planId}")
+    public void deletePlan(@PathVariable Long planId, @RequestBody DeleteRequestDto requestDto) {
+        planService.deletePlan(planId, requestDto);
+    }
+
+    // 게시글 수정 by 2021-07-12-19:18 최민서
+    @PutMapping("/api/plan/{planId}")
+    public void updatePlan(@PathVariable Long planId, @RequestBody PlanRequestDto requestDto) {
+        planService.updatePlan(planId, requestDto);
+    }
     
     /**
      * 07-12 19:37 오늘계획날짜 오늘아닌날짜 가져오는 GetMapping 작성 by 최왕규
