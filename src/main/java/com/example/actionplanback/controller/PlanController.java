@@ -1,6 +1,7 @@
 package com.example.actionplanback.controller;
 
 
+import com.example.actionplanback.domain.dto.PlanDetailResponseDto;
 import com.example.actionplanback.domain.dto.PlanRequestDto;
 import com.example.actionplanback.domain.entity.Plan;
 import com.example.actionplanback.domain.repository.PlanRepository;
@@ -35,7 +36,7 @@ public class PlanController {
 
     // 상세페이지 조회 -  || 댓글 리스트 추가 예정 ||
     @GetMapping("/api/plan/{planId}")
-    public Optional<Plan> getPlan(@PathVariable Long planId) {
+    public PlanDetailResponseDto getPlan(@PathVariable Long planId) {
         return planService.getPlan(planId);
     }
 }

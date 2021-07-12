@@ -16,7 +16,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Getter
-@Setter
 public class Reply extends Timestamped {
 
     @Id
@@ -29,17 +28,17 @@ public class Reply extends Timestamped {
     @Column(nullable = false)
     private String replyPassword;
 
-
     @Column(nullable = false)
     private String replyWriter;
 
-    @Column(nullable = false)
-    private Long planId; // 애는 db에서 plan_id로될거임
+    @ManyToOne
+    @JoinColumn(name="planId")
+    private Plan plan;
 
-    public Reply(ReplyRequestDto requestDto, Long planId){
+    public Reply(ReplyRequestDto requestDto, Plan plan){
         this.replyContent = requestDto.getReplyContent();
         this.replyWriter = requestDto.getReplyWriter();
         this.replyPassword = requestDto.getReplyPassword();
-        this.planId = planId;
+        this.plan = plan;
     }
 }

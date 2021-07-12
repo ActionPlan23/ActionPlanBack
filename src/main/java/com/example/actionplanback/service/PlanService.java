@@ -1,5 +1,6 @@
 package com.example.actionplanback.service;
 
+import com.example.actionplanback.domain.dto.PlanDetailResponseDto;
 import com.example.actionplanback.domain.dto.PlanRequestDto;
 import com.example.actionplanback.domain.entity.Plan;
 import com.example.actionplanback.domain.repository.PlanRepository;
@@ -33,7 +34,10 @@ public class PlanService {
 
     // 상세페이지 조회
     @Transactional
-    public Optional<Plan> getPlan(Long id) {
-        return planRepository.findById(id);
+    public PlanDetailResponseDto getPlan(Long id) {
+        Plan plan = planRepository.findById(id).orElseThrow(
+                ()->new IllegalArgumentException("해당 Plan 글이 없습니다. id = "+id));
+        PlanDetailResponseDto responseDto = new PlanDetailResponseDto(plan);
+        return responseDto;
     }
 }
