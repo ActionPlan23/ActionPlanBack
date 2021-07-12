@@ -36,7 +36,7 @@ public class Plan extends Timestamped {
 
     // plan에 대해서 mapping이 되어진 아이야.
     // 나는 단순히 읽기만 할 수 있어
-    @OneToMany(mappedBy = "plan")
+    @OneToMany(mappedBy = "plan", fetch = FetchType.EAGER)
     private List<Reply> replyList = new ArrayList<>();
 
     public Plan(PlanRequestDto planRequestDto) {
