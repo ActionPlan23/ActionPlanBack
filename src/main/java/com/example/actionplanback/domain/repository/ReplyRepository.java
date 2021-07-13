@@ -11,5 +11,6 @@ import java.util.List;
  * 2021-07-10 14:31 by 최왕규
  */
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
-    List<Reply> findAllByPlan(Plan plan);
+//    List<Reply> findAllByPlan(Plan plan);
+    List<Reply> findAllByPlanOrderByCreatedAtDesc(Plan plan);
 }
