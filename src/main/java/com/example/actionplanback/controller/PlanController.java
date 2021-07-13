@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 @RestController
 public class PlanController {
@@ -27,7 +28,7 @@ public class PlanController {
     // 작성
     @PostMapping("/api/plan")
     public void setPlan(@RequestBody PlanRequestDto planRequestDto) {
-        Plan plan = planService.setPlan(planRequestDto);
+        planService.setPlan(planRequestDto);
     }
 
     // 상세페이지 조회 -  || 댓글 리스트 추가 예정 ||

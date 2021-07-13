@@ -30,7 +30,7 @@ public class Plan extends Timestamped {
     private String planPassword;
 
     @Column(nullable = false)
-    private Long success;
+    private boolean success;
 
 
     public Plan(PlanRequestDto planRequestDto) {
@@ -38,9 +38,9 @@ public class Plan extends Timestamped {
 
         this.title = planRequestDto.getTitle();
         this.content = planRequestDto.getContent();
-        this.planWriter = planRequestDto.getPlanWriter();
+        this.planWriter = planRequestDto.getWriter();
         this.planPassword = planRequestDto.getPlanPassword();
-        this.success = planRequestDto.getSuccess();
+        this.success = false;
     }
 
     // Plan 수정 by 2021-07-12-19:18 최민서
@@ -65,7 +65,7 @@ public class Plan extends Timestamped {
     public void checkEmptyPlan(PlanRequestDto planRequestDto) {
         checkTitleContent(planRequestDto);
 
-        if (planRequestDto.getPlanWriter() == null || planRequestDto.getPlanWriter().isEmpty()) {
+        if (planRequestDto.getWriter() == null || planRequestDto.getWriter().isEmpty()) {
             throw new IllegalArgumentException("작성자 이름을 입력해주세요.");
         }
         if (planRequestDto.getPlanPassword() == null || planRequestDto.getPlanPassword().isEmpty()) {
