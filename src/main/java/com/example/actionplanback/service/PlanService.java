@@ -7,6 +7,7 @@ import com.example.actionplanback.domain.repository.PlanRepository;
 import com.example.actionplanback.domain.repository.ReplyRepository;
 import com.example.actionplanback.exception.ApiRequestException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,7 @@ public class PlanService {
     @Transactional //List<PlanAllResponseDto>원본
     public List<PlanAllResponseDto> getPlans() {
 
-        List<Plan> planList = planRepository.findAll();
+        List<Plan> planList = planRepository.findAll(Sort.by(Sort.Direction.DESC, "planId"));
 
         List<PlanAllResponseDto> result = planList.stream()
                 .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlan(plan)))
@@ -44,7 +45,7 @@ public class PlanService {
     public List<PlanAllResponseDto> getTodayPlan() {
         LocalDateTime start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
         LocalDateTime end = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).withNano(999999999);
-        List<Plan> planList = planRepository.findAllByCreatedAtBetween(start, end);
+        List<Plan> planList = planRepository.findAllByCreatedAtBetween(start, end, Sort.by("planId").descending());
 
         List<PlanAllResponseDto> result = planList.stream()
                 .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlan(plan)))
@@ -59,7 +60,7 @@ public class PlanService {
     public List<PlanAllResponseDto> getNotTodayPlan() {
 
         LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
-        List<Plan> planList = planRepository.findAllByCreatedAtBefore(today);
+        List<Plan> planList = planRepository.findAllByCreatedAtBefore(today, Sort.by("planId").descending());
 
         List<PlanAllResponseDto> result = planList.stream()
                 .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlan(plan)))
