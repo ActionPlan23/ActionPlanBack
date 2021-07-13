@@ -26,7 +26,7 @@ public class PlanService {
     @Transactional //List<PlanAllResponseDto>원본
     public List<PlanAllResponseDto> getPlans() {
 
-        List<Plan> planList = planRepository.findAll(Sort.by(Sort.Direction.DESC, "planId"));
+        List<Plan> planList = planRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
 
         List<PlanAllResponseDto> result = planList.stream()
                 .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlan(plan)))
@@ -45,7 +45,7 @@ public class PlanService {
     public List<PlanAllResponseDto> getTodayPlan() {
         LocalDateTime start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
         LocalDateTime end = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).withNano(999999999);
-        List<Plan> planList = planRepository.findAllByCreatedAtBetween(start, end, Sort.by("planId").descending());
+        List<Plan> planList = planRepository.findAllByCreatedAtBetween(start, end, Sort.by("createdAt").descending());
 
         List<PlanAllResponseDto> result = planList.stream()
                 .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlan(plan)))
@@ -60,7 +60,7 @@ public class PlanService {
     public List<PlanAllResponseDto> getNotTodayPlan() {
 
         LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
-        List<Plan> planList = planRepository.findAllByCreatedAtBefore(today, Sort.by("planId").descending());
+        List<Plan> planList = planRepository.findAllByCreatedAtBefore(today, Sort.by("createdAt").descending());
 
         List<PlanAllResponseDto> result = planList.stream()
                 .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlan(plan)))

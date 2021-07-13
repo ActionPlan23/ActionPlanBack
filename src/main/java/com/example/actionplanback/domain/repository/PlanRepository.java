@@ -16,7 +16,7 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
      * 2021-07-14 15:24 오늘날짜인거 가져오는거 일단완료.... by 최왕규 오늘날짜가아닌것은어케???
      */
 
-    @Query("SELECT p FROM Plan p WHERE p.createdAt BETWEEN :start AND :end")
+
     List<Plan> findAllByCreatedAtBetween(LocalDateTime start, LocalDateTime end, Sort sort);
 
 
