@@ -16,14 +16,12 @@ class PlanTest {
         String content = "content_test";
         String planWriter = "planWriter_test";
         String planPassword = "planPassword_test";
-        int success = 0;
 
         PlanRequestDto planRequestDto = new PlanRequestDto(
                 title,
                 content,
                 planWriter,
-                planPassword,
-                (long) success
+                planPassword
         );
 
         // when
@@ -35,7 +33,6 @@ class PlanTest {
         assertEquals(content, plan.getContent());
         assertEquals(planWriter, plan.getPlanWriter());
         assertEquals(planPassword, plan.getPlanPassword());
-        assertEquals(0, plan.getSuccess());
     }
 
 }

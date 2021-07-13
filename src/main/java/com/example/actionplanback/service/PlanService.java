@@ -71,10 +71,9 @@ public class PlanService {
 
     // 작성
     @Transactional
-    public Plan setPlan(PlanRequestDto planRequestDto) {
+    public void setPlan(PlanRequestDto planRequestDto) {
         Plan plan = new Plan(planRequestDto);
         planRepository.save(plan);
-        return plan;
     }
 
     // 상세페이지 조회

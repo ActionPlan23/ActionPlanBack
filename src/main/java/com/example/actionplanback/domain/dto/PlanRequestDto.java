@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 public class PlanRequestDto {
     private String title;
     private String content;
-    private String planWriter;
+    private String writer;
     private String planPassword;
-    private Long success;
 }

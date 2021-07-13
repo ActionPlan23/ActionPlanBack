@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * 2021-07-10 14:40 by 최왕규 200ok 어찌보내누.
  */
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ReplyController {
 

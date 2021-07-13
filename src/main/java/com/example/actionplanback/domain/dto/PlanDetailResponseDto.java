@@ -4,6 +4,7 @@ import com.example.actionplanback.domain.entity.Plan;
 import com.example.actionplanback.domain.entity.Reply;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +17,8 @@ public class PlanDetailResponseDto {
     private String content;
     private String writer;
     private List<ReplyResponseDto> replyList;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
     public PlanDetailResponseDto(Plan plan, List<ReplyResponseDto> replyList){
         this.planId = plan.getPlanId();
@@ -23,6 +26,8 @@ public class PlanDetailResponseDto {
         this.writer = plan.getPlanWriter();
         this.content = plan.getContent();
         this.replyList = replyList;
+        this.createdAt = plan.getCreatedAt();
+        this.modifiedAt = plan.getModifiedAt();
     }
 
 }
