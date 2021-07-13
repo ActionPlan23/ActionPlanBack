@@ -29,6 +29,7 @@ public class Reply extends Timestamped {
     @Column(nullable = false)
     private String replyWriter;
 
+    // Fk 가지는곳을 ManyToOne
     @ManyToOne
     @JoinColumn(name = "planId")
     private Plan plan;

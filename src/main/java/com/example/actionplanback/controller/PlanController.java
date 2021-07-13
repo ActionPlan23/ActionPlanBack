@@ -18,8 +18,7 @@ public class PlanController {
 
     private final PlanService planService;
 
-
-    // 리스트 조회
+    // 전체조회
     @GetMapping("/api/plan")
     public List<PlanAllResponseDto> getPlans() {
         return planService.getPlans();
@@ -27,9 +26,8 @@ public class PlanController {
 
     // 작성
     @PostMapping("/api/plan")
-    public Plan setPlan(@RequestBody PlanRequestDto planRequestDto) {
+    public void setPlan(@RequestBody PlanRequestDto planRequestDto) {
         Plan plan = planService.setPlan(planRequestDto);
-        return plan;
     }
 
     // 상세페이지 조회 -  || 댓글 리스트 추가 예정 ||

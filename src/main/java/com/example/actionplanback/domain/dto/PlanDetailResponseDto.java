@@ -15,19 +15,14 @@ public class PlanDetailResponseDto {
     private String title;
     private String content;
     private String writer;
-    private String planPassword;
     private List<ReplyResponseDto> replyList;
 
-    public PlanDetailResponseDto(Plan plan){
+    public PlanDetailResponseDto(Plan plan, List<ReplyResponseDto> replyList){
         this.planId = plan.getPlanId();
         this.title = plan.getTitle();
         this.writer = plan.getPlanWriter();
         this.content = plan.getContent();
-        this.planPassword = plan.getPlanPassword();
-
-        this.replyList = plan.getReplyList().stream()
-                .map(reply -> new ReplyResponseDto(reply))
-                .collect(Collectors.toList());
+        this.replyList = replyList;
     }
 
 }
