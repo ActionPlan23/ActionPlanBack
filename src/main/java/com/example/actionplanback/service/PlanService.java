@@ -25,10 +25,10 @@ public class PlanService {
     @Transactional //List<PlanAllResponseDto>원본
     public List<PlanAllResponseDto> getPlans() {
 
-        List<Plan> planList = planRepository.findAll();
+        List<Plan> planList = planRepository.findAllByOrderByCreatedAtDesc();
 
         List<PlanAllResponseDto> result = planList.stream()
-                .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlan(plan)))
+                .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlanOrderByCreatedAtDesc(plan)))
                 .collect(Collectors.toList());
 
         return result;
@@ -44,10 +44,10 @@ public class PlanService {
     public List<PlanAllResponseDto> getTodayPlan() {
         LocalDateTime start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
         LocalDateTime end = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).withNano(999999999);
-        List<Plan> planList = planRepository.findAllByCreatedAtBetween(start, end);
+        List<Plan> planList = planRepository.findAllByCreatedAtBetweenOrderByCreatedAtDesc(start, end);
 
         List<PlanAllResponseDto> result = planList.stream()
-                .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlan(plan)))
+                .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlanOrderByCreatedAtDesc(plan)))
                 .collect(Collectors.toList());
         return result;
     }
@@ -59,10 +59,10 @@ public class PlanService {
     public List<PlanAllResponseDto> getNotTodayPlan() {
 
         LocalDateTime today = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
-        List<Plan> planList = planRepository.findAllByCreatedAtBefore(today);
+        List<Plan> planList = planRepository.findAllByCreatedAtBeforeOrderByCreatedAtDesc(today);
 
         List<PlanAllResponseDto> result = planList.stream()
-                .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlan(plan)))
+                .map(plan -> new PlanAllResponseDto(plan, replyRepository.findAllByPlanOrderByCreatedAtDesc(plan)))
                 .collect(Collectors.toList());
         return result;
     }
@@ -82,7 +82,7 @@ public class PlanService {
         Plan plan = planRepository.findById(id).orElseThrow(
                 () -> new ApiRequestException("해당 Plan 글이 없습니다. id = " + id));
 
-        List<Reply> replyList = replyRepository.findAllByPlan(plan);
+        List<Reply> replyList = replyRepository.findAllByPlanOrderByCreatedAtDesc(plan);
 
         List<ReplyResponseDto> replyResponseDtoList = replyList.stream()
                 .map(reply -> new ReplyResponseDto(reply))
