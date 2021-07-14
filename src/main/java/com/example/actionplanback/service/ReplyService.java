@@ -29,16 +29,16 @@ public class ReplyService {
 
     // 댓글작성
     @Transactional
-    public void createReply(ReplyRequestDto requestDto, Long planId) {
+    public Long createReply(ReplyRequestDto requestDto, Long planId) {
         Plan plan = planRepository.findById(planId).orElseThrow(
                 () -> new ApiRequestException("해당 Plan 글이 없습니다. id = " + planId));
         Reply reply = new Reply(requestDto, plan);
-        replyRepository.save(reply);
+        return replyRepository.save(reply).getReplyId();
     }
 
     // 댓글 삭제 by 2021-07-12-14:02 최민서
     @Transactional
-    public void deleteReply(Long id, DeleteRequestDto requestDto) {
+    public Long deleteReply(Long id, DeleteRequestDto requestDto) {
         Reply reply = replyRepository.findById(id).orElseThrow(
                 () -> new ApiRequestException("해당 Reply 글이 없습니다. id = " + id));
 
@@ -47,11 +47,12 @@ public class ReplyService {
             throw new ApiRequestException("비밀번호가 틀렸습니다.");
         }
         replyRepository.deleteById(id);
+        return id;
     }
 
     // 댓글 수정 by 2021-07-12-14:04 최민서
     @Transactional
-    public void updateReply(Long id, ReplyRequestDto requestDto) {
+    public Long updateReply(Long id, ReplyRequestDto requestDto) {
         Reply reply = replyRepository.findById(id).orElseThrow(
                 () -> new ApiRequestException("해당 Reply 글이 없습니다. id = " + id));
 
@@ -60,5 +61,6 @@ public class ReplyService {
             throw new ApiRequestException("댓글의 비밀번호가 틀렸습니다.");
         }
         reply.update(requestDto);
+        return id;
     }
 }
