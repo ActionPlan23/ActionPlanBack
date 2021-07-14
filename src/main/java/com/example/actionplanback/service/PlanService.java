@@ -103,6 +103,10 @@ public class PlanService {
         if (!plan.getPlanPassword().equals(requestDto.getPassword())) {
             throw new ApiRequestException("비밀번호가 틀렸습니다.");
         }
+
+        // 해당 plan와 연결되어있는 reply 먼저 삭제
+        replyRepository.deleteAllByPlan(plan);
+        // plan 삭제
         planRepository.deleteById(id);
     }
 

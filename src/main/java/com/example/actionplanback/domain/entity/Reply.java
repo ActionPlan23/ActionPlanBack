@@ -30,7 +30,7 @@ public class Reply extends Timestamped {
     private String replyWriter;
 
     // Fk 가지는곳을 ManyToOne
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "planId")
     private Plan plan;
 
