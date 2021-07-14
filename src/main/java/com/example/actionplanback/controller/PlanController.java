@@ -10,7 +10,9 @@ import com.example.actionplanback.service.PlanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
@@ -27,8 +29,14 @@ public class PlanController {
 
     // 작성
     @PostMapping("/api/plan")
-    public void setPlan(@RequestBody PlanRequestDto planRequestDto) {
-        planService.setPlan(planRequestDto);
+    public Map<String, Long> setPlan(@RequestBody PlanRequestDto planRequestDto) {
+
+        Long planId = planService.setPlan(planRequestDto);
+
+        Map<String, Long> createdPlanId = new HashMap<>();
+        createdPlanId.put("planId", planId);
+        return createdPlanId;
+
     }
 
     // 상세페이지 조회 -  || 댓글 리스트 추가 예정 ||
@@ -39,14 +47,22 @@ public class PlanController {
 
     // 게시글 삭제 by 2021-07-12-19:18 최민서
     @DeleteMapping("/api/plan/{planId}")
-    public void deletePlan(@PathVariable Long planId, @RequestBody DeleteRequestDto requestDto) {
-        planService.deletePlan(planId, requestDto);
+    public Map<String, Long> deletePlan(@PathVariable Long planId, @RequestBody DeleteRequestDto requestDto) {
+
+        Long returnPlanId = planService.deletePlan(planId, requestDto);
+        Map<String, Long> deletedPlanId = new HashMap<>();
+        deletedPlanId.put("planId", returnPlanId);
+        return deletedPlanId;
     }
 
     // 게시글 수정 by 2021-07-12-19:18 최민서
     @PutMapping("/api/plan/{planId}")
-    public void updatePlan(@PathVariable Long planId, @RequestBody PlanRequestDto requestDto) {
-        planService.updatePlan(planId, requestDto);
+    public Map<String, Long> updatePlan(@PathVariable Long planId, @RequestBody PlanRequestDto requestDto) {
+
+        Long returnPlanId = planService.updatePlan(planId, requestDto);
+        Map<String, Long> updatedPlanId = new HashMap<>();
+        updatedPlanId.put("planId", returnPlanId);
+        return updatedPlanId;
     }
     
     /**

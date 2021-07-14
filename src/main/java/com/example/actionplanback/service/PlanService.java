@@ -68,12 +68,12 @@ public class PlanService {
     }
 
 
-
     // 작성
     @Transactional
-    public void setPlan(PlanRequestDto planRequestDto) {
+    public Long setPlan(PlanRequestDto planRequestDto) {
         Plan plan = new Plan(planRequestDto);
-        planRepository.save(plan);
+        return planRepository.save(plan).getPlanId();
+
     }
 
     // 상세페이지 조회
@@ -95,7 +95,7 @@ public class PlanService {
 
     // 게시글 삭제 by 2021-07-12-14:42 최민서
     @Transactional
-    public void deletePlan(Long id, DeleteRequestDto requestDto) {
+    public Long deletePlan(Long id, DeleteRequestDto requestDto) {
         Plan plan = planRepository.findById(id).orElseThrow(
                 () -> new ApiRequestException("해당 Plan 글이 없습니다. id = " + id));
 
@@ -108,11 +108,13 @@ public class PlanService {
         replyRepository.deleteAllByPlan(plan);
         // plan 삭제
         planRepository.deleteById(id);
+
+        return id;
     }
 
     // 게시글 수정 by 2021-07-12-14:42 최민서
     @Transactional
-    public void updatePlan(Long id, PlanRequestDto requestDto) {
+    public Long updatePlan(Long id, PlanRequestDto requestDto) {
         Plan plan = planRepository.findById(id).orElseThrow(
                 () -> new ApiRequestException("해당 Plan 글이 없습니다. id = " + id));
 
@@ -121,5 +123,7 @@ public class PlanService {
             throw new ApiRequestException("비밀번호가 틀렸습니다.");
         }
         plan.update(requestDto);
+
+        return id;
     }
 }
