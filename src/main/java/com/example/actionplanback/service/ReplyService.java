@@ -27,7 +27,7 @@ public class ReplyService {
         this.planRepository = planRepository;
     }
 
-    // 댓글작성
+    // 댓글 작성
     @Transactional
     public Long createReply(ReplyRequestDto requestDto, Long planId) {
         Plan plan = planRepository.findById(planId).orElseThrow(

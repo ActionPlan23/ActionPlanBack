@@ -21,8 +21,8 @@ public class PlanService {
     private final PlanRepository planRepository;
     private final ReplyRepository replyRepository;
 
-    // 리스트 조회
-    @Transactional //List<PlanAllResponseDto>원본
+    // 게시글 리스트 조회
+    @Transactional
     public List<PlanAllResponseDto> getPlans() {
 
         List<Plan> planList = planRepository.findAllByOrderByCreatedAtDesc();
@@ -34,12 +34,7 @@ public class PlanService {
         return result;
     }
 
-    /**
-     * 07-12 12:23 최왕규
-     *
-     * 오늘의 계획만 조회
-     */
-    // 리스트 조회
+    // 게시글 리스트 조회 by 2021-07-12 12:23 최왕규
     @Transactional
     public List<PlanAllResponseDto> getTodayPlan() {
         LocalDateTime start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
@@ -52,9 +47,7 @@ public class PlanService {
         return result;
     }
 
-    /**
-     *오늘이 아닌 계획 리스트 조회
-     */
+    // 오늘이 아닌 (지난 날짜의) 게시글 리스트 조회
     @Transactional
     public List<PlanAllResponseDto> getNotTodayPlan() {
 
@@ -68,7 +61,7 @@ public class PlanService {
     }
 
 
-    // 작성
+    // 게시글 작성
     @Transactional
     public Long setPlan(PlanRequestDto planRequestDto) {
         Plan plan = new Plan(planRequestDto);
@@ -76,7 +69,7 @@ public class PlanService {
 
     }
 
-    // 상세페이지 조회
+    // 게시글 상세페이지 조회
     @Transactional
     public PlanDetailResponseDto getPlan(Long id) {
         Plan plan = planRepository.findById(id).orElseThrow(

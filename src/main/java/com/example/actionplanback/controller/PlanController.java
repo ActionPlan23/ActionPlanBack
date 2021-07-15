@@ -14,20 +14,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hyeonju.shop")
 @RequiredArgsConstructor
 @RestController
 public class PlanController {
 
     private final PlanService planService;
 
-    // 전체조회
+    // 게시글 전체조회
     @GetMapping("/api/plan")
     public List<PlanAllResponseDto> getPlans() {
         return planService.getPlans();
     }
 
-    // 작성
+    // 게시글 작성
     @PostMapping("/api/plan")
     public Map<String, Long> setPlan(@RequestBody PlanRequestDto planRequestDto) {
 
@@ -39,7 +39,7 @@ public class PlanController {
 
     }
 
-    // 상세페이지 조회 -  || 댓글 리스트 추가 예정 ||
+    // 게시글 상세페이지 조회
     @GetMapping("/api/plan/{planId}")
     public PlanDetailResponseDto getPlan(@PathVariable Long planId) {
         return planService.getPlan(planId);
@@ -65,14 +65,13 @@ public class PlanController {
         return updatedPlanId;
     }
     
-    /**
-     * 07-12 19:37 오늘계획날짜 오늘아닌날짜 가져오는 GetMapping 작성 by 최왕규
-     */
+    // 오늘날짜의 게시글 목록 조회 by 2021-07-12 19:37 최왕규
     @GetMapping("/api/todayplan")
     public List<PlanAllResponseDto> getTodayPlan(){
         return planService.getTodayPlan();
     }
 
+    // 지난날짜의 게시글 목록 조회 by 2021-07-12 19:37 최왕규
     @GetMapping("/api/pastplan")
     public List<PlanAllResponseDto> getPastPlan(){
         return planService.getNotTodayPlan();

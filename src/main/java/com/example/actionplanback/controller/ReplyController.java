@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 2021-07-10 14:40 by 최왕규 200ok 어찌보내누.
+ * 2021-07-10 14:40 by 최왕규
  */
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://hyeonju.shop")
 @RestController
 public class ReplyController {
 
@@ -24,7 +24,7 @@ public class ReplyController {
         this.replyService = replyService;
     }
 
-    // 댓글작성 최왕규
+    // 댓글 작성 by 2021-07-10 14:40 최왕규
     @PostMapping("/api/reply/{planId}")
     public Map<String, Long> createReply(@PathVariable Long planId, @RequestBody ReplyRequestDto replyRequestDto) {
 
