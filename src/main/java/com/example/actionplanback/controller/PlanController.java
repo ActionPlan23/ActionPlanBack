@@ -35,6 +35,7 @@ public class PlanController {
 
         Map<String, Long> createdPlanId = new HashMap<>();
         createdPlanId.put("planId", planId);
+        createdPlanId.put("countReply", 0L);
         return createdPlanId;
 
     }
