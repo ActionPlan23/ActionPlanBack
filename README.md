@@ -22,7 +22,7 @@ http://hyeonju.shop
 - MySQL 8.0
 
 `Front-end`
--  React (React Repository이동)
+-  React ([React Repository이동](https://github.com/ActionPlan23/ActionPlanFront))
 
 `deploy`
 - AWS EC2 (Ubuntu 18.04 LTS)
@@ -39,17 +39,56 @@ http://hyeonju.shop
 <br>
 
 ## 4. 협업 과정
-- 프로젝트 관리 : Projects에서 확인
+- 프로젝트 관리 : [Projects에서 확인](https://github.com/ActionPlan23/ActionPlanBack/projects/1)
 - 설계
-	+ Figma를 이용하여 와이어프레임 공동 설계 : Wiki에서 확인
-	+ 노션을 이용하여 API 공동 설계 : Wiki에서 확인
-- 구현
-<img src="https://user-images.githubusercontent.com/70243735/125791537-1a050dcf-27ab-473f-9b87-332d9f98e4fe.png" width="700px">
+	+ Figma를 이용하여 와이어프레임 공동 설계 : [Wiki에서 확인](https://github.com/ActionPlan23/ActionPlanBack/wiki/%EC%99%80%EC%9D%B4%EC%96%B4%ED%94%84%EB%A0%88%EC%9E%84-%EC%84%A4%EA%B3%84-%F0%9F%94%A8)
+	+ 노션을 이용하여 API 공동 설계
+
+- 구현   
+	: 모든 작업은 다음과 같은 과정을 거쳤습니다.
+	
+	<img src="https://user-images.githubusercontent.com/70243735/125791537-1a050dcf-27ab-473f-9b87-332d9f98e4fe.png" width="700px">
+	
+	- Pull Request    
+		: [PullRequest 탭에서 확인하기](https://github.com/ActionPlan23/ActionPlanBack/pulls?q=is%3Apr+is%3Aclosed)   
+	- Code Review
+		<details>
+		<summary> 코드리뷰 간략하게 엿보기 :pushpin: </summary>
+
+		<img src="https://user-images.githubusercontent.com/70243735/125799801-ad53c8e8-3442-4bae-b927-7121edf1fcc1.png" width ="700px">
+	
+		<img src="https://user-images.githubusercontent.com/70243735/125800048-579af209-9038-4bb9-a8ad-43e33c2ec8b7.png" width ="700px">
+	
+
+		</details>
+	- Merge   
+		: 모든 PR은 모든 팀원들의 승인을 거친 후에 Merge하였습니다.
+	  
 
 <br>
 
 ## 5. API 설계
 
+<details>
+   <summary> Plan API 설계:pushpin: </summary>
+	
+   <img src="https://user-images.githubusercontent.com/70243735/125796108-b92f6c12-b1de-4c49-b466-7313a58b7736.png" width ="700px">
+	
+</details>
+
+<details>
+   <summary> Reply API 설계:pushpin: </summary>
+	
+   <img src="https://user-images.githubusercontent.com/70243735/125797065-6bc32c0b-a625-4f68-b091-f69f856b638e.png" width="700px">
+	
+</details>
+
+<details>
+   <summary> MainPage API 설계:pushpin: </summary>
+	
+   <img src="https://user-images.githubusercontent.com/70243735/125797062-cfb04af1-9bee-4e5a-b805-f5afc15c99c0.png" width="700px">
+	
+</details>
 
 
 <br>
